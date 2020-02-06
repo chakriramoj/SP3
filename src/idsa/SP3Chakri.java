@@ -1,29 +1,34 @@
 package idsa;
+import java.util.Arrays;
 import java.util.Random;
 
 public class SP3Chakri {
     public static Random random = new Random();
     public static int numTrials = 50;
     public static void main(String[] args) {
-	int n = 10;  int choice = 1 + random.nextInt(4);
+	int n = 10;  String choice = "take2";
 	if(args.length > 0) { n = Integer.parseInt(args[0]); }
-	if(args.length > 1) { choice = Integer.parseInt(args[1]); }
+	if(args.length > 1) { choice = args[1]; }
         int[] arr = new int[n];
         for(int i=0; i<n; i++) {
 	    arr[i] = i;
 	}
 	Timer timer = new Timer();
 	switch(choice) {
-	case 1:
+	case "take2":
 		for(int i=0; i<numTrials; i++) {
 		Shuffle.shuffle(arr);
+		System.out.println("Original Array: "+Arrays.toString(arr));
 		mergeSortTake2(arr);
+		System.out.println("Sorted Array: "+Arrays.toString(arr));
 	    }
 	    break;
-	case 2:
+	case "take3":
 	    for(int i=0; i<numTrials; i++) {
 		Shuffle.shuffle(arr);
+		System.out.println("Original Array: "+Arrays.toString(arr));
 		mergeSortTake3(arr);
+		System.out.println("Sorted Array: "+Arrays.toString(arr));
 	    }
 	    break;  // etc
 	}
@@ -42,7 +47,7 @@ public class SP3Chakri {
     }
 	
 	public static void mergeSortTake3(int[] a) {
-		int[] b=new int[a.length];
+		int[] b=Arrays.copyOf(a, a.length);
     	mergeSortTake3(a,b,0,a.length-1);
     }
 	
@@ -50,7 +55,7 @@ public class SP3Chakri {
 		if(i<k) {
 		    int j=(i+k)/2;
 		    mergeSortTake2(a,b,i,j);
-		    mergeSortTake2(a,b, j+1, j);
+		    mergeSortTake2(a,b, j+1, k);
 		    mergeTake2(a,b,i,j,k);
 		 }
 	}
@@ -58,7 +63,7 @@ public class SP3Chakri {
 		if(i<k) {
 		    int j=(i+k)/2;
 		    mergeSortTake3(b,a,i,j);
-		    mergeSortTake3(b,a, j+1, j);
+		    mergeSortTake3(b,a, j+1, k);
 		    mergeTake3(a,b,i,j,k);
 		 }
 	}
