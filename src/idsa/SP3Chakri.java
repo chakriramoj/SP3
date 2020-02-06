@@ -39,6 +39,15 @@ public class SP3Chakri {
 			System.out.println("Sorted Array: "+Arrays.toString(arr));
 		    }
 		    break;
+		    
+	case "take6":
+		for(int i=0; i<numTrials; i++) {
+			Shuffle.shuffle(arr);
+			System.out.println("Original Array: "+Arrays.toString(arr));
+			mergeSortTake6(arr);
+			System.out.println("Sorted Array: "+Arrays.toString(arr));
+		    }
+		    break;
 	}
 	timer.end();
 	timer.scale(numTrials);
@@ -47,15 +56,10 @@ public class SP3Chakri {
     }
 
     public static void insertionSort(int[] a,int i,int k) {
-    	
         for (int j = i+1; j < k+1; ++j) { 
             int key = a[j]; 
             int n = j - 1; 
-  
-            /* Move elements of arr[0..i-1], that are 
-               greater than key, to one position ahead 
-               of their current position */
-            while (n >= 0 && a[n] > key) { 
+            while (n >= i && a[n] > key) { 
                 a[n + 1] = a[n]; 
                 n = n - 1; 
             } 
@@ -76,6 +80,25 @@ public class SP3Chakri {
 	public static void mergeSortTake4(int[] a) {
 		int[] b=Arrays.copyOf(a, a.length);
     	mergeSortTake3(a,b,0,a.length-1);
+    }
+	
+	public static void mergeSortTake6(int[] a) {
+		int[] b=new int[a.length];
+		int[] inp=a;
+		int n=a.length;
+		for (int j = 0; j < n; j = j + 2) {
+			if(j+2-1<n)
+			insertionSort(a, j, j+2-1) ;
+			else {
+				insertionSort(a,j,n-1);
+				break;
+			}
+				
+		}
+		for(int i= 2; i< n; i= 2*i) {
+			for(int j = 0; j < n; j = j+2*i)
+			mergeTake6(b, inp, j, j+i-1, j+2*i-1);int[] t = inp; inp= b; b = t;} 
+		if (a != inp) System.arraycopy(inp, 0, a, 0, inp.length);
     }
 	
 	public static void mergeSortTake2(int[] a,int[] b,int i,int k) {
@@ -164,7 +187,28 @@ public class SP3Chakri {
 		    
 		 }
 	     }
-	}
+	
+
+
+public static void mergeTake6(int[] a,int[] b,int i,int j,int k ) {
+	int x=i,y=i,z=j+1;
+	 while(x<=j&&z<=k) {
+	     if(b[x]>b[z]) {
+		a[y++]=b[z++];
+	     }
+	     else {
+		 a[y++]=b[x++];
+	     }
+	 }
+	 while(x<=j) {
+	     a[y++]=b[x++];
+	 }
+	 while(z<=k) {
+	     a[y++]=b[z++];
+	    
+	 }
+     }
+}
 	
 	
 
