@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SP3Chakri {
+	public final static int threshhold=8;
     public static Random random = new Random();
     public static int numTrials = 50;
     public static void main(String[] args) {
@@ -86,19 +87,34 @@ public class SP3Chakri {
 		int[] b=new int[a.length];
 		int[] inp=a;
 		int n=a.length;
-		for (int j = 0; j < n; j = j + 2) {
-			if(j+2-1<n)
-			insertionSort(a, j, j+2-1) ;
+	
+		for (int j = 0; j < n; j = j + threshhold) {
+			if(j+threshhold-1<n-1)
+			insertionSort(a, j, j+threshhold-1) ;
 			else {
-				insertionSort(a,j,n-1);
+				insertionSort(a, j, n-1) ;
 				break;
 			}
 				
 		}
-		for(int i= 2; i< n; i= 2*i) {
-			for(int j = 0; j < n; j = j+2*i)
-			mergeTake6(b, inp, j, j+i-1, j+2*i-1);int[] t = inp; inp= b; b = t;} 
-		if (a != inp) System.arraycopy(inp, 0, a, 0, inp.length);
+		for(int i= threshhold; i< n; i= 2*i) {
+			for(int j = 0; j < n; j = j+2*i) {
+				if(j+i-1>=n-1) {
+					mergeTake6(b, inp, j, n-1, n-1);
+					break;
+				}
+				else if(j+2*i-1>=n-1) {
+					mergeTake6(b, inp, j, j+i-1, n-1);
+					break;
+				}
+				else mergeTake6(b, inp, j, j+i-1, j+2*i-1);
+			}
+			
+			int[] t = inp; 
+			inp= b; 
+			b = t;} 
+		    System.arraycopy(inp, 0, a, 0, inp.length);
+		
     }
 	
 	public static void mergeSortTake2(int[] a,int[] b,int i,int k) {
@@ -119,7 +135,8 @@ public class SP3Chakri {
 	}
 	
 	public static void mergeSortTake4(int[] a,int[] b,int i,int k) {
-		if(k-i+1<3) {
+		
+		if(k-i+1<threshhold) {
 			insertionSort(a,i,k);
 		}
 		
@@ -191,7 +208,13 @@ public class SP3Chakri {
 
 
 public static void mergeTake6(int[] a,int[] b,int i,int j,int k ) {
+	
 	int x=i,y=i,z=j+1;
+if(j==a.length-1) {
+	while(x<=j) {
+	     a[y++]=b[x++];
+	 }return;	
+	}
 	 while(x<=j&&z<=k) {
 	     if(b[x]>b[z]) {
 		a[y++]=b[z++];
