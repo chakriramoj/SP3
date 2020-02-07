@@ -26,34 +26,26 @@ public class SP3Chakri {
 		case "take2":
 			for (int i = 0; i < numTrials; i++) {
 				Shuffle.shuffle(arr);
-				System.out.println("Original Array: " + Arrays.toString(arr));
 				mergeSortTake2(arr);
-				System.out.println("Sorted Array: " + Arrays.toString(arr));
 			}
 			break;
 		case "take3":
 			for (int i = 0; i < numTrials; i++) {
 				Shuffle.shuffle(arr);
-				System.out.println("Original Array: " + Arrays.toString(arr));
 				mergeSortTake3(arr);
-				System.out.println("Sorted Array: " + Arrays.toString(arr));
 			}
 			break;
 		case "take4":
 			for (int i = 0; i < numTrials; i++) {
 				Shuffle.shuffle(arr);
-				System.out.println("Original Array: " + Arrays.toString(arr));
 				mergeSortTake4(arr);
-				System.out.println("Sorted Array: " + Arrays.toString(arr));
 			}
 			break;
 
 		case "take6":
 			for (int i = 0; i < numTrials; i++) {
 				Shuffle.shuffle(arr);
-				System.out.println("Original Array: " + Arrays.toString(arr));
 				mergeSortTake6(arr);
-				System.out.println("Sorted Array: " + Arrays.toString(arr));
 			}
 			break;
 		}
